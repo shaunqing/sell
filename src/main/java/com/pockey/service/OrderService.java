@@ -125,7 +125,7 @@ public class OrderService {
     }
 
     // 查询订单列表
-    Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
+    public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
 
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
 
