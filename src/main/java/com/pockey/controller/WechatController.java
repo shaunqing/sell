@@ -38,6 +38,7 @@ public class WechatController {
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(url, String.class);
         log.info("response={}", response);
+
     }
 
 
@@ -46,7 +47,7 @@ public class WechatController {
         // 配置
 
         // 调用方法
-        String url = "";
+        String url = "http://milotic.natapp1.cc/sell/wechat/userInfo";
         String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_BASE, URLEncoder.encode(returnUrl));
         log.info("【微信网页授权】 获取code, result={}", redirectUrl);
 
