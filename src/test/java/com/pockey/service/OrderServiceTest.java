@@ -93,4 +93,13 @@ public class OrderServiceTest extends BaseTest {
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 
+    @Test
+    public void list() {
+        PageRequest pageRequest = new PageRequest(0, 10);
+        Page<OrderDTO> orderDTOPage = orderService.findList(pageRequest);
+//        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
+        // 这样写可以保持格式统一
+        Assert.assertTrue("查询所有的订单列表", orderDTOPage.getTotalElements() > 0);
+    }
+
 }

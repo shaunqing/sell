@@ -1,7 +1,11 @@
 package com.pockey.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pockey.domain.OrderDetail;
+import com.pockey.enums.OrderStatusEnum;
+import com.pockey.enums.PayStatusEnum;
+import com.pockey.utils.EnumUtil;
 import com.pockey.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -41,4 +45,14 @@ public class OrderDTO {
     private Date updateTime; // 更新时间
 
     private List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 }

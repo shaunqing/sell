@@ -45,7 +45,15 @@ public class OrderService {
     @Autowired
     private OrderMasterRepository orderMasterRepository;
 
-    // 创建订单
+    @Autowired
+    private PayService payService;
+
+    /**
+     * 创建订单
+     *
+     * @param orderDTO
+     * @return
+     */
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
 
@@ -104,7 +112,12 @@ public class OrderService {
     }
 
 
-    // 查询单个订单
+    /**
+     * 查询单个订单
+     *
+     * @param orderId
+     * @return
+     */
     public OrderDTO findOne(String orderId) {
 
         OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
@@ -124,7 +137,13 @@ public class OrderService {
         return orderDTO;
     }
 
-    // 查询订单列表
+    /**
+     * 查询订单列表
+     *
+     * @param buyerOpenid
+     * @param pageable
+     * @return
+     */
     public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
 
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
@@ -134,7 +153,12 @@ public class OrderService {
         return new PageImpl<OrderDTO>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 
-    // 取消订单
+    /**
+     * 取消订单
+     *
+     * @param orderDTO
+     * @return
+     */
     @Transactional
     public OrderDTO cancel(OrderDTO orderDTO) {
         // 修改订单状态为CANCEL
@@ -142,7 +166,7 @@ public class OrderService {
 
         // 返回库存
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
-            log.error("【取消订单】 订单中午商品详情, orderDTO={}", orderDTO);
+            log.error("【取消订单】 订单中无商品详情, orderDTO={}", orderDTO);
             throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
         }
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
@@ -152,7 +176,7 @@ public class OrderService {
 
         // 如果已支付，则退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
-            // TODO 退款
+            payService.refund(orderDTO);
         }
 
         return orderDTO;
@@ -183,7 +207,12 @@ public class OrderService {
         }
     }
 
-    // 完结订单
+    /**
+     * 完结订单
+     *
+     * @param orderDTO
+     * @return
+     */
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
         // 判断订单状态
@@ -206,7 +235,12 @@ public class OrderService {
         return orderDTO;
     }
 
-    // 支付订单
+    /**
+     * 支付订单
+     *
+     * @param orderDTO
+     * @return
+     */
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
         // 判断订单状态
@@ -233,6 +267,20 @@ public class OrderService {
         }
 
         return orderDTO;
+    }
+
+    /**
+     * 查询订单列表
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+
+        return new PageImpl<OrderDTO>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 
 }
