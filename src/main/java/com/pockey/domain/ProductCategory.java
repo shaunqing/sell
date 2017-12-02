@@ -1,10 +1,12 @@
 package com.pockey.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by LIQing
@@ -12,6 +14,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Data
+@DynamicUpdate
 public class ProductCategory {
     @Id
     @GeneratedValue
@@ -26,6 +29,11 @@ public class ProductCategory {
      * 类目编号.
      */
     private Integer categoryType;
+
+
+    private Date createTime; // 创建时间
+
+    private Date updateTime; // 修改时间
 
     public ProductCategory() {
     }

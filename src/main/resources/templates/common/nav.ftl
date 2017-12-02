@@ -9,9 +9,9 @@
         <ul class="nav navbar-nav side-nav">
             <li><a href="/sell/seller/order/list"><i class="fa fa-dashboard"></i> 订单</a></li>
             <li><a href="/sell/seller/product/list"><i class="fa fa-bar-chart-o"></i> 商品-列表</a></li>
-            <li><a href="tables.html"><i class="fa fa-table"></i> 商品-新增</a></li>
-            <li><a href="forms.html"><i class="fa fa-edit"></i> 类目-列表</a></li>
-            <li><a href="typography.html"><i class="fa fa-font"></i> 类目-新增</a></li>
+            <li><a href="/sell/seller/product/index"><i class="fa fa-table"></i> 商品-新增</a></li>
+            <li><a href="/sell/seller/category/list"><i class="fa fa-edit"></i> 类目-列表</a></li>
+            <li><a href="/sell/seller/category/index"><i class="fa fa-font"></i> 类目-新增</a></li>
             <li><a href="bootstrap-elements.html"><i class="fa fa-desktop"></i> 登出</a></li>
         </ul>
 

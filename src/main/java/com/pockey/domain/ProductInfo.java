@@ -35,7 +35,7 @@ public class ProductInfo {
 
     private String productIcon; // 小图
 
-    private Integer productStatus; //商品状态 0正常，1下架
+    private Integer productStatus = ProductStatusEnum.UP.getCode(); //商品状态 0正常，1下架
 
     private Integer categoryType; // 类目编号
 
