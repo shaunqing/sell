@@ -3,6 +3,7 @@ package com.pockey.controller;
 import com.pockey.config.ProjectUrlConfig;
 import com.pockey.constant.CookieConstant;
 import com.pockey.constant.RedisConstant;
+import com.pockey.enums.ResultEnum;
 import com.pockey.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.UUID;
@@ -27,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 @Controller
 @RequestMapping("/seller")
 public class SellerUserController {
-
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -57,7 +58,20 @@ public class SellerUserController {
     }
 
     @GetMapping("/logout")
-    public void logout() {
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
 
+        // 1 从cookie中查询
+        Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
+        if (cookie != null) {
+            // 2 清除redis
+            redisTemplate.opsForValue().getOperations().delete(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
+
+            // 3 清楚cookie
+            CookieUtil.set(response, CookieConstant.TOKEN, null, 0);
+        }
+
+        map.put("msg", ResultEnum.LOGOUT_SUCCESS.getMessage());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("common/success", map);
     }
 }
