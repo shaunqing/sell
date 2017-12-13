@@ -27,7 +27,7 @@ public enum ResultEnum {
 
     ORDER_DETAIL_EMPTY(16, "订单详情为空"),
 
-    ORDER_PAY_STATUS_ERROR(16, "订单详情为空"),
+    ORDER_PAY_STATUS_ERROR(17, "订单详情为空"),
 
     CART_EMPTY(18, "购物车为空"),
 
@@ -39,9 +39,13 @@ public enum ResultEnum {
 
     ORDER_CANCEL_SUCCESS(22, "订单取消成功"),
 
-    ORDER_FINISH_SUCCESS(22, "订单完结成功"),
+    ORDER_FINISH_SUCCESS(23, "订单完结成功"),
 
-    PRODUCT_STATUS_ERROR(23, "商品状态不正确");
+    PRODUCT_STATUS_ERROR(24, "商品状态不正确"),
+
+    LOGIN_FAIL(25, "登录失败，登录信息不正确"),
+
+    LOGOUT_SUCCESS(26, "登出成功");
 
     private Integer code;
 

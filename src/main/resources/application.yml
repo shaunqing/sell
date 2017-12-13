@@ -8,13 +8,23 @@ spring:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+  redis:
+    host:
+    port: 6379
 server:
   context-path: /sell
 
 wechat:
   mpAppId: wxaa974f9507f68859
   mpAppSecret: 323a5ab2031849cc649b445e9ca37f5d
+  openAppId: 111
+  openAddSecret: 112
   mchId: 123
   mchKey: 456
   keyPath: weixin_cert/h5.p12 #退款证书的路径
   notifyUrl: http://milotic.natapp1.cc/sell/pay/notify
+
+projectUrl:
+  wechatMpAuthorize: http://milotic.natapp1.cc
+  wechatOpenAuthorize: http://milotic.natapp1.cc
+  sell: http://milotic.natapp1.cc
