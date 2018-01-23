@@ -3,7 +3,7 @@
 <body>
 <div id="wrapper">
 
-    <#include "../common/nav.ftl">
+<#include "../common/nav.ftl">
 
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -76,6 +76,38 @@
         </div>
     </div>
 </div>
+
+<script>
+    var websocket = null;
+    if ('WebSocket' in window) {
+        websocket = new WebSocket('ws://localhost:8080/sell/webSocket');
+    } else {
+        alert('该浏览器不支持websocket！');
+    }
+
+    websocket.onopen = function (event) {
+        console.log('建立连接');
+    }
+
+    websocket.onclose = function (event) {
+        console.log('连接关闭');
+    }
+
+    websocket.onmessage = function (event) {
+        console.log('收到消息:' + event.data);
+        // 弹窗提醒，之类
+    }
+
+    websocket.onerror = function () {
+        alert('websocket通信发生错误！')
+    }
+
+    window.onbeforeunload = function () {
+        websocket.close();
+    }
+
+</script>
+
 
 </body>
 </html>

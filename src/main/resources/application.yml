@@ -23,6 +23,8 @@ wechat:
   mchKey: 456
   keyPath: weixin_cert/h5.p12 #退款证书的路径
   notifyUrl: http://milotic.natapp1.cc/sell/pay/notify
+  templateId:
+    orderStatus: adfafid
 
 projectUrl:
   wechatMpAuthorize: http://milotic.natapp1.cc
