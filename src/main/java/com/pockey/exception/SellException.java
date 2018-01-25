@@ -1,11 +1,13 @@
 package com.pockey.exception;
 
 import com.pockey.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * Created by LIQing
  * 2017/10/29 16:52
  */
+@Getter
 public class SellException extends RuntimeException {
 
     private Integer code;

@@ -9,6 +9,7 @@ import com.pockey.dto.OrderDTO;
 import com.pockey.enums.OrderStatusEnum;
 import com.pockey.enums.PayStatusEnum;
 import com.pockey.enums.ResultEnum;
+import com.pockey.exception.ResponseBankException;
 import com.pockey.exception.SellException;
 import com.pockey.repository.OrderDetailRepository;
 import com.pockey.repository.OrderMasterRepository;
@@ -85,7 +86,7 @@ public class OrderService {
         productService.decreaseStock(cartDTOList);
 
         // 发送websocket消息
-        webSocket.sendMessage("有新的订单");
+        webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }
