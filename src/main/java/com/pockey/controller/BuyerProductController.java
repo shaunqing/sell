@@ -10,6 +10,7 @@ import com.pockey.service.ProductService;
 import com.pockey.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,8 @@ public class BuyerProductController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
-    public ResultVO list() {
+//    @Cacheable(cacheNames = "product", key = "123")
+    public ResultVO list(String sellerId) {
         // 查询所有的上架商品
         List<ProductInfo> productInfoList = productService.findUpAll();
 

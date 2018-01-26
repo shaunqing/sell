@@ -10,7 +10,7 @@ import javax.websocket.server.ServerEndpoint;
  * @author LIQing
  * @create 2018-01-23 13:50
  */
-@Component
+//@Component
 public class WebSocketConfig {
 
     @Bean

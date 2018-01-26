@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -41,6 +42,39 @@ public class ProductCategoryMapperTest extends BaseTest{
     @Test
     public void findByCategoryType() {
         ProductCategory productCategory = mapper.findByCategoryType(102);
+        Assert.assertNotNull(productCategory);
+    }
+
+    @Test
+    public void findByCategoryName() {
+        List<ProductCategory> productCategory = mapper.findByCategoryName("测试342");
+        Assert.assertNotEquals(0,productCategory.size());
+    }
+
+    @Test
+    public void updateByCategoryType() {
+        int result = mapper.updateByCategoryType("测试bug",102);
+        Assert.assertEquals(1,result);
+    }
+
+    @Test
+    public void updateByObject() {
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryName("测试342333333");
+        productCategory.setCategoryType(109);
+        int result = mapper.updateByObject(productCategory);
+        Assert.assertEquals(1,result);
+    }
+
+    @Test
+    public void deleteCategoryType() {
+        int result = mapper.deleteByCategoryType(109);
+        Assert.assertEquals(1,result);
+    }
+
+    @Test
+    public void selectByCategoryType() {
+        ProductCategory productCategory = mapper.selectByCategoryType(102);
         Assert.assertNotNull(productCategory);
     }
 

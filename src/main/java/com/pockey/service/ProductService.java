@@ -7,6 +7,9 @@ import com.pockey.enums.ResultEnum;
 import com.pockey.exception.SellException;
 import com.pockey.repository.ProductInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,11 +22,13 @@ import java.util.List;
  * 2017/10/28 16:43
  */
 @Service
+@CacheConfig(cacheNames = "product")
 public class ProductService {
 
     @Autowired
     private ProductInfoRepository repository;
 
+//    @Cacheable(key = "123")
     public ProductInfo findOne(String productId) {
         return repository.findOne(productId);
     }
@@ -41,6 +46,7 @@ public class ProductService {
         return repository.findAll(pageable);
     }
 
+//    @CachePut(key = "123")
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }

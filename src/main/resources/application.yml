@@ -30,3 +30,9 @@ projectUrl:
   wechatMpAuthorize: http://milotic.natapp1.cc
   wechatOpenAuthorize: http://milotic.natapp1.cc
   sell: http://milotic.natapp1.cc
+
+logging:
+  level:
+    com.pockey.domain.mapper: trace #设置mybatis的日志打印sql语句，开发用
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
